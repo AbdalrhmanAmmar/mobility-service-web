@@ -7,83 +7,11 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id        String   @id @default(uuid())
-  fullName  String
-  username  String   @unique
-  phone     String   @unique
-  salary    Float
-  password  String
-  
-  attendances Attendance[]
-  activities Activity[]
-  role      Role     @default(SALES) 
-  status  satuts @default(ACTIVE)
 
-  // إعداد العلاقة مع الفرع
-  branchId  String?
-  branch    branches? @relation(fields: [branchId], references: [id])
 
+model vin{
+  id        String  @id @default(uuid())
+  vin       String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model branches {
-  id        String   @id @default(uuid())
-  name      String
-  address   String?  // أضف علامة الاستفهام هنا
-  phone     String?  // أضف علامة الاستفهام هنا
-  
-  users     User[]
-  createdAt DateTime @default(now())
-}
-
-model Attendance {
-  id          String           @id @default(uuid())
-  
-  // ربط الحضور بالموظف
-  userId      String
-  user        User             @relation(fields: [userId], references: [id])
-
-  date        DateTime         // تاريخ اليوم فقط (بدون وقت لتسهيل البحث)
-  
-  checkIn     DateTime?        // وقت الحضور الفعلي
-  checkOut    DateTime?        // وقت الانصراف الفعلي
-  
-  status      AttendanceStatus @default(PRESENT)
-  note        String?          // ملاحظات (مثل: سبب التأخير أو المغادرة المبكرة)
-
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
-
-  // منع تسجيل الحضور لنفس الموظف مرتين في نفس اليوم
-  @@unique([userId, date])
-}
-
-enum AttendanceStatus {
-  PRESENT    // حضر في الموعد
-  LATE       // متأخر
-  ABSENT     // غائب
-  ON_LEAVE   // إجازة
-}
-
-enum Role {
-  ADMIN
-  SALES
-}
-enum satuts{
-  ACTIVE
-  NOT_ACTIVE
-}
-
-model Activity {
-  id           String   @id @default(uuid())
-  actionType   String   // نوع الحركة: (CREATE, UPDATE, DELETE, LOGIN, CHECK_IN, CHECK_OUT)
-  description  String   // الرسالة المفصلة
-  userId       String
-  user         User     @relation(fields: [userId], references: [id])
-  createdAt    DateTime @default(now())
-
-  @@index([actionType]) // تسريع عمليات الفلترة حسب النوع
-  @@index([userId])
 }
