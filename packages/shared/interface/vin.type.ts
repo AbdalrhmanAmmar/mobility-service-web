@@ -13,4 +13,4 @@ export type CreateVinDto = z.infer<typeof vinSchema>;
 export interface vinResponseDto extends BaseResponse {
   data: Vin;
 }
-export interface vinListResponseDto extends PaginatedResponse<Vin> {}
+export type vinListResponseDto = PaginatedResponse<Vin>;
