@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { IUser } from "@/interface/user";
-import { userServices } from "@/api/user";
 import { ILoginInput } from "@/interface/user";
+import { userServices } from "@/api/user";
 
 // تعريف شكل البيانات في الستور
 interface AuthState {

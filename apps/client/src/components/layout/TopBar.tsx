@@ -12,9 +12,7 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useNavigate } from "react-router-dom";
-import { BranchSelect } from "../shared/BranchSelect";
 import { useFilterStore } from "@/store/useFilterStore";
-import { ActivityNotifications } from "../dashboard/ActivityNotifications";
 
 interface TopBarProps {
   sidebarCollapsed: boolean;
@@ -96,15 +94,6 @@ const TopBar = ({ sidebarCollapsed, onToggle }: TopBarProps) => {
         {/* Right Section */}
         <div className="flex items-center gap-4">
           {/* Branch Selector */}
-          <div className="relative">
-            <div className="hidden sm:block">
-              <BranchSelect
-                variant="minimal"
-                value={selectedBranchId}
-                onChange={setSelectedBranchId}
-              />
-            </div>
-          </div>
 
           {/* Theme Toggle */}
           <button
@@ -117,11 +106,6 @@ const TopBar = ({ sidebarCollapsed, onToggle }: TopBarProps) => {
               <Moon className="w-5 h-5 text-muted-foreground" />
             )}
           </button>
-
-          {/* Notifications */}
-          <div className="relative">
-            <ActivityNotifications />
-          </div>
 
           {/* User Profile */}
           <div className="flex items-center gap-3 pr-4 border-r border-border">

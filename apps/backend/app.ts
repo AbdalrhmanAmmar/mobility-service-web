@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import router from "./routes";
-import { globalErrorHandler } from "./app/api/middlewares/handleError";
+import { errorMiddleware } from "./app/api/middlewares/handleError";
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api/v1", router);
-app.use(globalErrorHandler);
+app.use(errorMiddleware);
 
 // Root route
 app.get("/", (req, res) => {
