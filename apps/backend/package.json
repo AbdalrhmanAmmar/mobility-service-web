@@ -13,14 +13,6 @@
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.4.1",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "prisma",
-      "@prisma/engines",
-      "@prisma/client",
-      "bcrypt"
-    ]
-  },
   "dependencies": {
     "@crm/shared": "workspace:*",
     "@prisma/adapter-pg": "7.2.0",
