@@ -1,17 +1,43 @@
 generator client {
-  provider = "prisma-client"  // بدل prisma-client-js
-  output   = "./generated/prisma" // أصبح إجبارياً الآن
+  provider = "prisma-client-js"
+  output   = "./generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  ADMIN
+  SALES
+  USER
+}
 
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+}
 
-model vin{
-  id        String  @id @default(uuid())
+model User {
+  id        String     @id @default(uuid())
+  username  String     @unique
+  password  String
+  role      UserRole   @default(USER)
+  status    UserStatus @default(ACTIVE)
+  branchId  String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("users")
+}
+
+model vin {
+  id        String   @id @default(uuid())
   vin       String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("vins")
 }
